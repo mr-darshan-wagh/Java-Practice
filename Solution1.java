@@ -1,27 +1,24 @@
-public class PalindromeCheck {
-    public boolean isPalindrome(int x) {
-        if (x < 0) return false;
-        if (x % 10 == 0 && x != 0) return false;
+import java.util.Scanner;
 
-        int reversedHalf = 0;
-        while (x > reversedHalf) {
-            int digit = x % 10;
-            reversedHalf = reversedHalf * 10 + digit;
-            x /= 10;
-        }
-
-        return x == reversedHalf || x == reversedHalf / 10;
+class Solution1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int x = sc.nextInt();
+        System.out.println("Reversed: " + new Solution1().reverse(x));
     }
 
-    public static void main(String[] args) {
-        PalindromeCheck pc = new PalindromeCheck();
+    public int reverse(int x) {
+        int rev = 0;
+        while (x != 0) {
+            int digit = x % 10;
+            x /= 10;
 
-        int test1 = 121;
-        int test2 = -121;
-        int test3 = 10;
+            if (rev > Integer.MAX_VALUE / 10 || (rev == Integer.MAX_VALUE / 10 && digit > 7)) return 0;
+            if (rev < Integer.MIN_VALUE / 10 || (rev == Integer.MIN_VALUE / 10 && digit < -8)) return 0;
 
-        System.out.println(test1 + " -> " + pc.isPalindrome(test1)); // true
-        System.out.println(test2 + " -> " + pc.isPalindrome(test2)); // false
-        System.out.println(test3 + " -> " + pc.isPalindrome(test3)); // false
+            rev = rev * 10 + digit;
+        }
+        return rev;
     }
 }
